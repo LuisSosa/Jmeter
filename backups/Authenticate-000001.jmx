@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Test Fragment" enabled="true"/>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="vUserId" elementType="Argument">
+              <stringProp name="Argument.name">vUserId</stringProp>
+              <stringProp name="Argument.value">ea3a90fb-4936-4f49-bd2e-c6eb57190ad354</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="vFirstName" elementType="Argument">
+              <stringProp name="Argument.name">vFirstName</stringProp>
+              <stringProp name="Argument.value">Bruno</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="vLastName" elementType="Argument">
+              <stringProp name="Argument.name">vLastName</stringProp>
+              <stringProp name="Argument.value">Herrera</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="vEmail" elementType="Argument">
+              <stringProp name="Argument.name">vEmail</stringProp>
+              <stringProp name="Argument.value">bruno.herrera@wrethink.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="vToken" elementType="Argument">
+              <stringProp name="Argument.name">vToken</stringProp>
+              <stringProp name="Argument.value">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlYTNhOTBmYi00OTM2LTRmNDktYmQyZS1jNmViNTcxOTBhZDMifQ.pn1VMERsplxI2d1ssxyLGREd53xu1u4cS6PaHXyDrVw</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Authenticate1 / Get Token" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+   &quot;email&quot;: &quot;bruno.herrera@wrethink.com&quot;,&#xd;
+   &quot;password&quot;: &quot;12345&quot;,&#xd;
+   &quot;hardwareId&quot;: &quot;F8:A2:D6:47:A0:CF&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${__P(test.environment.hostname)}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/authenticate</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">userId; firstName; lastName; email; token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.userId; $.firstName; $.lastName; $.email; $.token</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">No_Default; No_Default; No_Default; No_Default; No_Default</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">	vars.put(&quot;statusReq1&quot;,&quot;1&quot;);
+	vars.put(&quot;message&quot;,&quot;This test passed&quot;);
+	def failureMessage = &quot;&quot;;
+	
+	if (!vars.get(&quot;userId&quot;).equals(vars.get(&quot;vUserId&quot;))){
+
+	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot;  + &quot;The userId is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;firstName&quot;).equals(vars.get(&quot;vFirstName&quot;))){
+
+	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The firstName is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;lastName&quot;).equals(vars.get(&quot;vLastName&quot;))){
+
+	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The lastName is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;email&quot;).equals(vars.get(&quot;vEmail&quot;))){
+
+		failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The email is wrong.&quot;;
+	}
+	if (!vars.get(&quot;token&quot;).equals(vars.get(&quot;vToken&quot;))){
+
+		failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The token is wrong.&quot;;
+	}
+	if(SampleResult.getResponseCode() != &quot;200&quot;){
+
+	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The response code is wrong.&quot;;	    
+	}
+
+	if (failureMessage?.trim()) {
+
+		vars.put(&quot;statusReq1&quot;,&quot;5&quot;);
+		AssertionResult.setFailure(true); 		
+		log.error(failureMessage);
+		AssertionResult.setFailureMessage(&quot;FAILED&quot;);
+		vars.put(&quot;message&quot;,&quot;This test failed&quot;);
+	
+	}
+
+	
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Authenticate2 / GetToken" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+   &quot;userId&quot;: &quot;ea3a90fb-4936-4f49-bd2e-c6eb57190ad3&quot;,&#xd;
+   &quot;hardwareId&quot;: &quot;F8:A2:D6:47:A0:CF&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${__P(test.environment.hostname)}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/authenticate</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">userId; firstName; lastName; email; token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.userId; $.firstName; $.lastName; $.email; $.token</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">No_Default; No_Default; No_Default; No_Default; No_Default</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">	vars.put(&quot;statusReq2&quot;,&quot;1&quot;);
+	vars.put(&quot;message2&quot;,&quot;This test passed&quot;);
+	def failureMessage2 = &quot;&quot;;
+	
+	if (!vars.get(&quot;userId&quot;).equals(vars.get(&quot;vUserId&quot;))){
+
+	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot;  + &quot;The userId is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;firstName&quot;).equals(vars.get(&quot;vFirstName&quot;))){
+
+	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The firstName is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;lastName&quot;).equals(vars.get(&quot;vLastName&quot;))){
+
+	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The lastName is wrong.&quot;;
+	}
+
+	if (!vars.get(&quot;email&quot;).equals(vars.get(&quot;vEmail&quot;))){
+
+		failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The email is wrong.&quot;;
+	}
+	if (!vars.get(&quot;token&quot;).equals(vars.get(&quot;vToken&quot;))){
+
+		failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The token is wrong.&quot;;
+	}
+	if(SampleResult.getResponseCode() != &quot;200&quot;){
+
+	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The response code is wrong.&quot;;	    
+	}
+
+	if (failureMessage2?.trim()) {
+
+		vars.put(&quot;statusReq2&quot;,&quot;5&quot;);
+		AssertionResult.setFailure(true); 		
+		log.error(failureMessage2);
+		AssertionResult.setFailureMessage(&quot;FAILED&quot;);
+		vars.put(&quot;message2&quot;,&quot;This test failed&quot;);
+	
+	}
+
+	
+</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send results testrail" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;results&quot;: [&#xd;
+		{&#xd;
+			&quot;test_id&quot;: 9,&#xd;
+			&quot;status_id&quot;: ${statusReq1},&#xd;
+			&quot;comment&quot;: &quot;${message}&quot;&#xd;
+&#xd;
+		},&#xd;
+		{&#xd;
+			&quot;test_id&quot;: 10,&#xd;
+			&quot;status_id&quot;: ${statusReq2},&#xd;
+			&quot;comment&quot;: &quot;${message2}&quot;&#xd;
+		}&#xd;
+		&#xd;
+	]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">lsosa.testrail.io</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">index.php?/api/v2/add_results/5</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

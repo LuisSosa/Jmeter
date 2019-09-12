@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="Login Testrail" enabled="true">
+        <collectionProp name="AuthManager.auth_list">
+          <elementProp name="" elementType="Authorization">
+            <stringProp name="Authorization.url">https://lsosa.testrail.io</stringProp>
+            <stringProp name="Authorization.username">ing.lasosa@gmail.com</stringProp>
+            <stringProp name="Authorization.password">r6DbcFBZfOizVHRMtXot</stringProp>
+            <stringProp name="Authorization.domain"></stringProp>
+            <stringProp name="Authorization.realm"></stringProp>
+          </elementProp>
+        </collectionProp>
+      </AuthManager>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Declare static variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="location" elementType="Argument">
+            <stringProp name="Argument.name">location</stringProp>
+            <stringProp name="Argument.value"> ${__P(location,)} </stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <com.tag.jmeter.ext.config.PropertyReader guiclass="TestBeanGUI" testclass="com.tag.jmeter.ext.config.PropertyReader" testname="Read properties file" enabled="true">
+        <stringProp name="propFilePath">..\properties\wrethink.properties</stringProp>
+      </com.tag.jmeter.ext.config.PropertyReader>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include_Login" enabled="true">
+          <stringProp name="IncludeController.includepath">..\fragments\Login.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module_Login" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-1948168983">Thread Group</stringProp>
+            <stringProp name="-777008942">Include_Login</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+      </hashTree>
+      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Log" enabled="true">
+        <stringProp name="scriptLanguage">groovy</stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="cacheKey">true</stringProp>
+        <stringProp name="script">public void sendToLog(String name){
+
+	AssertionResult.setFailureMessage(name);
+	log.error(&quot;Thread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; &quot;);
+	
+}</stringProp>
+      </JSR223Listener>
+      <hashTree/>
+      <kg.apc.jmeter.reporters.FlexibleFileWriter guiclass="kg.apc.jmeter.reporters.FlexibleFileWriterGui" testclass="kg.apc.jmeter.reporters.FlexibleFileWriter" testname="jp@gc - Flexible File Writer" enabled="true">
+        <stringProp name="filename">.\reports\testResults.txt</stringProp>
+        <stringProp name="columns">|threadName|\t\t||sampleLabel|\t\t||errorCount|\t\t|\t|\r\n</stringProp>
+        <boolProp name="overwrite">true</boolProp>
+        <stringProp name="header">|Thread Name|		 	|Request|				|Failed|\r\n\n</stringProp>
+        <stringProp name="footer"></stringProp>
+      </kg.apc.jmeter.reporters.FlexibleFileWriter>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener" enabled="false">
+        <stringProp name="scriptLanguage">groovy</stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="cacheKey">true</stringProp>
+        <stringProp name="script">import org.apache.jmeter.services.FileServer
+
+if (!prev.isSuccessful()) {
+
+    String errorMessage = &quot;&quot;;
+    errorMessage = ctx.getThreadNum() + sampler.getName() + &apos; has failed &apos;+ctx.getPreviousResult().getResponseMessage();
+    
+}</stringProp>
+      </JSR223Listener>
+      <hashTree/>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </PostThreadGroup>
+      <hashTree>
+        <SmtpSampler guiclass="SmtpSamplerGui" testclass="SmtpSampler" testname="SMTP Sampler" enabled="false">
+          <stringProp name="SMTPSampler.server">smtp.googlemail.com</stringProp>
+          <stringProp name="SMTPSampler.serverPort">587</stringProp>
+          <stringProp name="SMTPSampler.mailFrom">ing.lasosa@gmail.com</stringProp>
+          <stringProp name="SMTPSampler.replyTo"></stringProp>
+          <stringProp name="SMTPSampler.receiverTo">luis.sosa@wrethink.com </stringProp>
+          <stringProp name="SMTPSampler.receiverCC"></stringProp>
+          <stringProp name="SMTPSampler.receiverBCC"></stringProp>
+          <stringProp name="SMTPSampler.subject">JMeter notification - ${__time(dd/MM/yyyy,)} ${__time(hh:mm a,)}</stringProp>
+          <stringProp name="SMTPSampler.suppressSubject">false</stringProp>
+          <stringProp name="SMTPSampler.include_timestamp">false</stringProp>
+          <stringProp name="SMTPSampler.message">Message from JMETER:
+
+Execution Completed...!!</stringProp>
+          <stringProp name="SMTPSampler.plainBody">true</stringProp>
+          <stringProp name="SMTPSampler.attachFile">.\reports\testResults.txt</stringProp>
+          <stringProp name="SMTPSampler.useSSL">false</stringProp>
+          <stringProp name="SMTPSampler.useStartTLS">true</stringProp>
+          <stringProp name="SMTPSampler.trustAllCerts">false</stringProp>
+          <stringProp name="SMTPSampler.enforceStartTLS">false</stringProp>
+          <stringProp name="SMTPSampler.useLocalTrustStore">false</stringProp>
+          <stringProp name="SMTPSampler.trustStoreToUse"></stringProp>
+          <stringProp name="SMTPSampler.tlsProtocols"></stringProp>
+          <boolProp name="SMTPSampler.use_eml">false</boolProp>
+          <stringProp name="SMTPSampler.emlMessageToSend"></stringProp>
+          <stringProp name="SMTPSampler.useAuth">true</stringProp>
+          <stringProp name="SMTPSampler.password">upsin1994</stringProp>
+          <stringProp name="SMTPSampler.username">ing.lasosa@gmail.com</stringProp>
+          <stringProp name="SMTPSampler.messageSizeStatistics">false</stringProp>
+          <stringProp name="SMTPSampler.enableDebug">false</stringProp>
+          <collectionProp name="SMTPSampler.headerFields"/>
+        </SmtpSampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
