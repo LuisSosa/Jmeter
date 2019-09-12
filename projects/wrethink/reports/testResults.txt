@@ -1,0 +1,6 @@
+|Thread Name|		 	|Request|				|Failed|
+
+|Thread Group 1-1		|Authenticate1 / Get Token		|1			
+|Thread Group 1-1		|Authenticate2 / GetToken		|1			
+|Thread Group 1-1		|Send results testrail		|0			
+|tearDown Thread Group 1-1		|Send Email		|0			

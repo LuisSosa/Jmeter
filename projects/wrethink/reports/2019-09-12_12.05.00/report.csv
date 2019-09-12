@@ -1,0 +1,6 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+12/09/2019 12:05,283,Authenticate1 / Get Token,200,OK,Thread Group 1-1,text,false,FAILED,559,312,1,1,http://wrethink-dev-vault.herokuapp.com/authenticate,283,0,93
+12/09/2019 12:05,93,Authenticate2 / GetToken,200,OK,Thread Group 1-1,text,false,FAILED,559,297,1,1,http://wrethink-dev-vault.herokuapp.com/authenticate,93,0,0
+12/09/2019 12:05,1112,Send results testrail,200,OK,Thread Group 1-1,text,true,,681,480,1,1,https://lsosa.testrail.io/index.php?/api/v2/add_results/5,1112,0,759
+12/09/2019 12:05,2353,Send Email,200,"Message successfully sent!
+",tearDown Thread Group 1-1,text,true,,612,0,1,1,null,0,0,0
