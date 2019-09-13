@@ -36,6 +36,11 @@
               <stringProp name="Argument.value">bruno.herrera@wrethink.com</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
+            <elementProp name="vAvatar" elementType="Argument">
+              <stringProp name="Argument.name">vAvatar</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
             <elementProp name="vToken" elementType="Argument">
               <stringProp name="Argument.name">vToken</stringProp>
               <stringProp name="Argument.value">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlYTNhOTBmYi00OTM2LTRmNDktYmQyZS1jNmViNTcxOTBhZDMifQ.pn1VMERsplxI2d1ssxyLGREd53xu1u4cS6PaHXyDrVw</stringProp>
@@ -84,10 +89,10 @@
         </HTTPSamplerProxy>
         <hashTree>
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">userId; firstName; lastName; email; token</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.userId; $.firstName; $.lastName; $.email; $.token</stringProp>
+            <stringProp name="JSONPostProcessor.referenceNames">userId; firstName; lastName; email; avatar; token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.userId; $.firstName; $.lastName; $.email; $.avatar; $.token</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">No_Default; No_Default; No_Default; No_Default; No_Default</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">No_Default; No_Default; No_Default; No_Default; No_Default; No_Default</stringProp>
           </JSONPostProcessor>
           <hashTree/>
           <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
@@ -97,45 +102,56 @@
             <stringProp name="script">	vars.put(&quot;statusReq1&quot;,&quot;1&quot;);
 	vars.put(&quot;message&quot;,&quot;This test passed&quot;);
 	def failureMessage = &quot;&quot;;
+
+	try{	
+		if (!String.valueOf(vars.get(&quot;userId&quot;))){
 	
-	if (!vars.get(&quot;userId&quot;).equals(vars.get(&quot;vUserId&quot;))){
-
-	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot;  + &quot;The userId is wrong.&quot;;
-	}
-
-	if (!vars.get(&quot;firstName&quot;).equals(vars.get(&quot;vFirstName&quot;))){
-
-	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The firstName is wrong.&quot;;
-	}
-
-	if (!vars.get(&quot;lastName&quot;).equals(vars.get(&quot;vLastName&quot;))){
-
-	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The lastName is wrong.&quot;;
-	}
-
-	if (!vars.get(&quot;email&quot;).equals(vars.get(&quot;vEmail&quot;))){
-
-		failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The email is wrong.&quot;;
-	}
-	if (!vars.get(&quot;token&quot;).equals(vars.get(&quot;vToken&quot;))){
-
-		failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The token is wrong.&quot;;
-	}
-	if(SampleResult.getResponseCode() != &quot;200&quot;){
-
-	    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The response code is wrong.&quot;;	    
-	}
-
-	if (failureMessage?.trim()) {
-
-		vars.put(&quot;statusReq1&quot;,&quot;5&quot;);
-		AssertionResult.setFailure(true); 		
-		log.error(failureMessage);
-		AssertionResult.setFailureMessage(&quot;FAILED&quot;);
-		vars.put(&quot;message&quot;,&quot;This test failed&quot;);
+		    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot;  + &quot;The userId is wrong.&quot;;
+		}
 	
+		if (!String.valueOf(vars.get(&quot;firstName&quot;))){
+	
+		    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The firstName is wrong.&quot;;
+		}
+	
+		if (!String.valueOf(vars.get(&quot;lastName&quot;))){
+	
+		    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The lastName is wrong.&quot;;
+		}
+	
+		if (!String.valueOf(vars.get(&quot;email&quot;))){
+	
+			failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The email is wrong.&quot;;
+		}
+	
+		if (!String.valueOf(vars.get(&quot;avatar&quot;)) &amp;&amp;  vars.get(&quot;avatar&quot;)==null){
+				log.error(&quot;DEBUG: &quot;+ vars.get(&quot;avatar&quot;))
+				failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The avatar is wrong.&quot;;			
+		}
+		
+		if (!String.valueOf(vars.get(&quot;token&quot;))){
+	
+			failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The token is wrong.&quot;;
+		}
+		if(SampleResult.getResponseCode() != &quot;200&quot;){
+	
+		    	failureMessage += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The response code is wrong.&quot;;	    
+		}
+	
+		if (failureMessage?.trim()) {
+	
+			vars.put(&quot;statusReq1&quot;,&quot;5&quot;);
+			AssertionResult.setFailure(true); 		
+			log.error(failureMessage);
+			AssertionResult.setFailureMessage(&quot;FAILED&quot;);
+			vars.put(&quot;message&quot;,&quot;This test failed&quot;);	
+	 }		
+	}catch(e){
+
+		log.error(&quot;MESSAGE:&quot;+e);
 	}
 
+	
 	
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
@@ -187,26 +203,31 @@
 	vars.put(&quot;message2&quot;,&quot;This test passed&quot;);
 	def failureMessage2 = &quot;&quot;;
 	
-	if (!vars.get(&quot;userId&quot;).equals(vars.get(&quot;vUserId&quot;))){
+	if (!String.valueOf(vars.get(&quot;userId&quot;))){
 
 	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot;  + &quot;The userId is wrong.&quot;;
 	}
 
-	if (!vars.get(&quot;firstName&quot;).equals(vars.get(&quot;vFirstName&quot;))){
+	if (!String.valueOf(vars.get(&quot;firstName&quot;))){
 
 	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The firstName is wrong.&quot;;
 	}
 
-	if (!vars.get(&quot;lastName&quot;).equals(vars.get(&quot;vLastName&quot;))){
+	if (!String.valueOf(vars.get(&quot;lastName&quot;))){
 
 	    	failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The lastName is wrong.&quot;;
 	}
 
-	if (!vars.get(&quot;email&quot;).equals(vars.get(&quot;vEmail&quot;))){
+	if (!String.valueOf(vars.get(&quot;email&quot;))){
 
 		failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The email is wrong.&quot;;
 	}
-	if (!vars.get(&quot;token&quot;).equals(vars.get(&quot;vToken&quot;))){
+	if (!String.valueOf(vars.get(&quot;avatar&quot;)) &amp;&amp;  vars.get(&quot;avatar&quot;)==null){
+		log.error(&quot;DEBUG: &quot;+ vars.get(&quot;avatar&quot;))
+		failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The avatar is wrong.&quot;;			
+	}
+	
+	if (!String.valueOf(vars.get(&quot;token&quot;))){
 
 		failureMessage2 += &quot;\nThread Number:&quot; + ctx.getThreadNum() + &quot; Request: &quot;+ sampler.getName() +&quot; : &quot; + &quot;The token is wrong.&quot;;
 	}
